@@ -1,21 +1,24 @@
-import vue from '@vitejs/plugin-vue'
-import { resolve } from 'path'
 import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
+// https://vite.dev/config/
 export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, './src'),
-      'wailsjs': resolve(__dirname, '../wailsjs')
-    }
-  },
+  plugins: [react()],
   server: {
-    host: '127.0.0.1',
-    port: 34115,
+    port: 5173,
     strictPort: true,
-    fs: {
-      allow: ['..']
+    host: 'localhost'
+  },
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: 'assets/[name].[ext]'
+      }
     }
   }
 })
